@@ -21,8 +21,11 @@ app.use(cookieParser());
 app.use(errorHandle)
 
 //routes import
-
+import userRoutes from "./routes/user.routes.js"
+import dashboardRoutes from "./routes/dashboard.routes.js"
 
 //routes declaration
+app.use("/api/users", userRoutes)
+app.use("/api/dashboard", dashboardRoutes)
 
 export default app
