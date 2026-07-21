@@ -72,3 +72,15 @@ const analytics = asyncHandler(async (req, res) => {
 
     return res.status(200).json(new ApiResponse(200, result, "analytics fetched."))
 })
+
+const activeUrls = asyncHandler(async(req, res) => {
+    const result = await Url.aggregate([
+        {
+            $match: {
+                userId: req.user._id
+            }
+        }
+    ])
+
+    return res.status(200).json( new ApiResponse(200, result, "active urls fetched."))
+})
