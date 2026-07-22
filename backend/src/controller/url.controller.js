@@ -80,6 +80,21 @@ const deleteUrl = asyncHandler(async(req, res) => {
     res.status(200).json(new ApiResponse(200, url, "deleted url successfully."))
 })
 
+const toggleIsActive = asyncHandler(async(req, res) => {
+        const { urlId } = req.params
+
+    if(!(mongoose.Types.ObjectId.isValid(urlId))) throw new ApiError(400, "selected url is invalid.")
+
+    const url = await Url.findById(urlId)
+
+    if(!url) throw new ApiError(StatusCodes.NOT_FOUND , "url not found.")
+    if(url.userId.toString() !== req.user._id.toString()) throw new ApiError(StatusCodes.FORBIDDEN, "sorry, you cannot toogle this url")
+
+    url.isActive = url.isActive ? false : true
+    url.save()
+
+    res.status(200).json(new ApiResponse(200, { status: url.isActive }, "url toggled successfully."))
+})
 
 export {
     shortenUrl,
