@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-
+    
 const urlSchema = new Schema({
     shortCode: {
         type: String,
