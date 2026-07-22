@@ -1,7 +1,7 @@
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
-import { errorHandler, next } from "./middleware/errorHandle.middleware"
+import { errorHandle } from "./middleware/errorHandle.middleware.js"
 
 const app = express()
 
