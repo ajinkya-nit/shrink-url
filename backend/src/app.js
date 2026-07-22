@@ -24,9 +24,11 @@ app.use(errorHandle)
 //routes import
 import userRoutes from "./routes/user.routes.js"
 import dashboardRoutes from "./routes/dashboard.routes.js"
+import urlRoutes from "./routes/url.routes.js"
 
 //routes declaration
 app.use("/api/users", userRoutes)
 app.use("/api/dashboard", dashboardRoutes)
+app.use("/api/url", urlRoutes)
 
 export default app

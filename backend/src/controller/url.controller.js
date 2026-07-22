@@ -4,6 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import { Url } from "../models/url.models.js";
 import { nanoid } from "nanoid"
 import ApiResponse from "../utils/ApiResponse.js";
+import mongoose from "mongoose";
 
 const shortenUrl = asyncHandler(async (req, res) => {
     const { originalUrl, isActive = true, expiry = "1y" } = req.body
@@ -60,6 +61,29 @@ const redirectUrl = asyncHandler(async (req, res) => {
             $inc: { clicks: 1 }
         }
     )
-    
+
     res.redirect(url.originalUrl)
 })
+
+const deleteUrl = asyncHandler(async(req, res) => {
+    const { urlId } = req.params
+
+    if(!(mongoose.Types.ObjectId.isValid(urlId))) throw new ApiError(400, "selected url is invalid.")
+
+    const url = await Url.findById(urlId)
+
+    if(!url) throw new ApiError(StatusCodes.NOT_FOUND , "url not found.")
+    if(url.userId.toString() !== req.user._id.toString()) throw new ApiError(StatusCodes.FORBIDDEN, "sorry, you cannot detele this url")
+
+    await Url.findByIdAndDelete(urlId)
+    
+    res.status(200).json(new ApiResponse(200, url, "deleted url successfully."))
+})
+
+
+export {
+    shortenUrl,
+    redirectUrl,
+    deleteUrl,
+    toggleIsActive
+}
