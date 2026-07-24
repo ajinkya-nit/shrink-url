@@ -1,0 +1,16 @@
+meta {
+  name: "Analytics"
+  type: "http"
+  seq: 1
+}
+
+get {
+  url: "{{baseUrl}}/api/dashboard/analytics?page=1&limit=10&sortType=desc"
+  body: "none"
+  auth: bearer
+}
+
+auth:bearer {
+  token: "{{accessToken}}"
+}
+​

@@ -10,7 +10,7 @@ const analytics = asyncHandler(async (req, res) => {
         sortType = "desc"
     } = req.query
 
-    const userId = req.user._id
+    const userId = req.user?._id
     const skip = (Number(page) - 1) * Number(limit)
 
     const result = await Url.aggregate([
@@ -109,7 +109,7 @@ const activeUrls = asyncHandler(async (req, res) => {
     return res.status(200).json(new ApiResponse(200, result, "active urls fetched."))
 })
 
-const deactiveUrls = asyncHandler(async(req,res) => {
+const deactiveUrls = asyncHandler(async (req, res) => {
     const {
         page = 1,
         limit = 10,
@@ -145,7 +145,7 @@ const deactiveUrls = asyncHandler(async(req,res) => {
     return res.status(200).json(new ApiResponse(200, result, "deactive urls fetched."))
 })
 
-const expiredUrls = asyncHandler(async(req, res) => {
+const expiredUrls = asyncHandler(async (req, res) => {
     const {
         page = 1,
         limit = 10,

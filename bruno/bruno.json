@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "shrink-url-api",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    "dist"
+  ]
+}

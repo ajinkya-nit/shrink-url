@@ -1,0 +1,16 @@
+meta {
+  name: "Expired URLs"
+  type: "http"
+  seq: 4
+}
+
+get {
+  url: "{{baseUrl}}/api/dashboard/expiredurls?page=1&limit=10&sortType=desc"
+  body: "none"
+  auth: bearer
+}
+
+auth:bearer {
+  token: "{{accessToken}}"
+}
+​

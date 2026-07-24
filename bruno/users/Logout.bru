@@ -1,0 +1,16 @@
+meta {
+  name: "Logout User"
+  type: "http"
+  seq: 6
+}
+
+post {
+  url: "{{baseUrl}}/api/users/logout"
+  body: "none"
+  auth: bearer
+}
+
+auth:bearer {
+  token: "{{accessToken}}"
+}
+​

@@ -46,14 +46,14 @@ const registerUser = asyncHandler(async (req, res, next) => {
 })
 
 const loginUser = asyncHandler(async (req, res) => {
-    const [email, password] = req.body
+    const { email, password } = req.body
     if (!email) throw new ApiError(400, "email is required.")
     if (!password) throw new ApiError(400, "password is required.")
 
-    const user = User.findOne({ email })
+    const user = await User.findOne({ email })
     if (!user) throw new ApiError(404, "user doesn't exists.")
 
-    const isPassValid = user.isPasswordCorrect(password)
+    const isPassValid = await user.isPasswordCorrect(password)
     if (!isPassValid) throw new ApiError(401, "password is incorrect.")
 
     const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id)
@@ -165,7 +165,7 @@ const updateAccountDetails = asyncHandler(async(req, res) => {
         throw new ApiError(400, "All fields are required")
     }
 
-    const user = User.findByIdAndUpdate(
+    const user = await User.findByIdAndUpdate(
         req.user?._id,
         {
             $set: {

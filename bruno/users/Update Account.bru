@@ -1,0 +1,23 @@
+meta {
+  name: "Update Account"
+  type: "http"
+  seq: 5
+}
+
+patch {
+  url: "{{baseUrl}}/api/users/update-account"
+  body: "json"
+  auth: bearer
+}
+
+auth:bearer {
+  token: "{{accessToken}}"
+}
+
+body:json {
+  {
+    "fullName": "John Doe",
+    "email": "john@example.com"
+  }
+}
+​

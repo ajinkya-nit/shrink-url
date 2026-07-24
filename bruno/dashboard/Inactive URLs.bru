@@ -1,0 +1,16 @@
+meta {
+  name: "Inactive URLs"
+  type: "http"
+  seq: 3
+}
+
+get {
+  url: "{{baseUrl}}/api/dashboard/deactiveurls?page=1&limit=10&sortType=desc"
+  body: "none"
+  auth: bearer
+}
+
+auth:bearer {
+  token: "{{accessToken}}"
+}
+​
